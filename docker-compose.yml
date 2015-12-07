@@ -1,0 +1,13 @@
+postgres:
+  image: postgres
+  environment:
+    POSTGRES_USER: rt
+    POSTGRES_DB: rt
+
+rt:
+  build: rt
+  privileged: true
+  links:
+    - postgres:db
+  environment:
+    RT_RESTRICTREFERRER: 'false'
