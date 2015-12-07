@@ -9,28 +9,19 @@ export RTCONF
 PATH=/opt/rt4/sbin:/opt/rt4/bin:$PATH
 export PATH
 
-DBFLAGFILE=/opt/rt4/etc/db_initialized
-
 /scripts/initialize-rt-config.sh
 /scripts/configure-msmtp.sh
 /scripts/configure-getmail.sh
+/scripts/configure-database.sh
 
-if [ "$SKIP_DB_INIT" = 1 ]; then
-	echo skipped > $DBFLAGFILE
-fi
+cat >> $RTCONF <<EOF
+1;
+EOF
 
-if [ ! -f "$DBFLAGFILE" ]; then
-	/scripts/configure-database.sh
-
-	cat >> $RTCONF <<-EOF
-	1;
-	EOF
-
-	rt-setup-database --action init --skip-create &&
-		date > $DBFLAGFILE
-fi
+/scripts/initialize-db-schema.sh
 
 systemctl enable httpd
+systemd-machine-id-setup
 
 echo "[i] starting services"
 exec /sbin/init
