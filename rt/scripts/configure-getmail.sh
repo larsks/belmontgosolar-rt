@@ -1,6 +1,9 @@
 #!/bin/sh
 
 mkdir -p /etc/getmail
+mkdir -p /var/lib/getmail
+
+chown apache:apache /var/lib/getmail
 
 if echo "${GETMAIL_USE_SSL:-on}" | egrep -qi 'true|on|yes'; then
 	_retriever=SimplePOP3SSLRetriever
@@ -40,6 +43,4 @@ OnCalendar=*:0/5
 WantedBy=multi-user.target
 EOF
 
-mkdir /var/lib/getmail
-chown apache:apache /var/lib/getmail
 systemctl enable rt-getmail.timer
