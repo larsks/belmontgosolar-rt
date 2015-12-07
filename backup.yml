@@ -1,0 +1,8 @@
+pgdump:
+  image: postgres
+  links:
+    - postgres:db
+  command: >
+    sh -c 'env PGPASSWORD=$DB_ENV_POSTGRES_PASSWORD pg_dump
+    -h db -U $DB_ENV_POSTGRES_USER -w rt'
+
