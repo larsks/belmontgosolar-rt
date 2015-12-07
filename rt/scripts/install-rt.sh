@@ -14,4 +14,7 @@ make fixdeps
 make install
 )
 
+mkdir -p /opt/rt4/var/data/RT-Shredder
+chown apache:apache /opt/rt4/var/data/RT-Shredder
+
 rm -rf /tmp/rt-$RT_VERSION rt-$RT_VERSION.tar.gz /opt/rt4/etc/RT_SiteConfig.pm
