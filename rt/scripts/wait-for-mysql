@@ -1,0 +1,28 @@
+#!/bin/sh
+
+: ${DB_CONNECT_RETRIES:=20}
+
+echo "[i] waiting for mysql"
+
+DB_IS_READY=0
+
+for i in $(seq 1 1 $DB_CONNECT_RETRIES); do
+	echo "[i] trying to connect to mysql ($i)"
+
+	if mysql -B --connect-timeout=1 -h db -u $DB_ENV_MYSQL_USER \
+			-p$DB_ENV_MYSQL_PASSWORD \
+			-e "SELECT version();" $DB_ENV_MYSQL_DATABASE; then
+		DB_IS_READY=1
+		break
+	else
+		sleep 5
+	fi
+done
+
+if [ "$DB_IS_READY" = 1 ]; then
+	echo "[i] mysql is ready"
+	exit 0
+else
+	echo "[!] failed to connect to mysql"
+	exit 1
+fi
