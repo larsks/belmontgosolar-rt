@@ -1,0 +1,21 @@
+#!/bin/sh
+
+echo "[i] setting up fts index"
+
+/opt/rt4/sbin/rt-setup-fulltext-index \
+	--dba "$DB_ENV_POSTGRES_USER" \
+	--dba-password "$DB_ENV_POSTGRES_PASSWORD" \
+	--table fts \
+	--column ContentIndex \
+	--index-type GIN
+
+cat > $RTCONFDIR/90-fts.pl <<EOF
+Set( %FullTextSearch,
+    Enable     => 1,
+    Indexed    => 1,
+    Table      => 'fts',
+    Column     => 'ContentIndex',
+);
+EOF
+
+systemctl enable rt-update-index.timer

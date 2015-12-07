@@ -1,0 +1,8 @@
+#!/bin/sh
+
+(
+echo "Set(\$DatabaseType, 'mysql');"
+echo "Set(\$DatabaseUser, '$DB_ENV_MYSQL_USER');"
+echo "Set(\$DatabasePassword, '$DB_ENV_MYSQL_PASSWORDr');"
+echo "Set(\$DatabaseName, '$DB_ENV_MYSQL_DATABASE');"
+) > $RTCONFDIR/10-database-config.pl

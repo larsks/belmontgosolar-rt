@@ -6,10 +6,6 @@
 : ${SMTP_TLS:=on}
 : ${SMTP_TLS_STARTTLS:=on}
 
-is_true () {
-	egrep -qi 'true|on|yes'
-}
-
 # Look for a trusted certificate bundle in a few places
 if [ -z "$SMTP_TLS_TRUST_FILE" ]; then
 	for bundle in /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt; do
@@ -19,7 +15,6 @@ if [ -z "$SMTP_TLS_TRUST_FILE" ]; then
 		fi
 	done
 fi
-
 
 cat > $MSMTPRC <<EOF
 account rt

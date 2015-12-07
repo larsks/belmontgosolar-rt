@@ -1,15 +1,15 @@
 #!/bin/sh
 
-echo "Set(\$DatabaseHost,   'db');" >> $RTCONF
-echo "Set(\$DatabaseRTHost, 'localhost');" >> $RTCONF
-
 if [ "$DB_ENV_MYSQL_PASSWORD" != "" ]; then
 	echo "[i] detected mysql"
-	/scripts/configure-mysql.sh
+	_DBTYPE=mysql
 elif [ "$DB_ENV_POSTGRES_PASSWORD"  != "" ]; then
 	echo "[i] detected postgres"
-	/scripts/configure-postgres.sh
+	_DBTYPE=pg
 else
 	echo "[i] no database detected; defaulting to sqlite"
-	/scripts/configure-sqlite.sh
+	_DBTYPE=sqlite
 fi
+
+/scripts/db/$_DBTYPE/config
+/scripts/db/$_DBTYPE/wait

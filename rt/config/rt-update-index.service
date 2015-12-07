@@ -1,0 +1,8 @@
+[Unit]
+After=httpd
+
+[Service]
+Type=oneshot
+ExecStart=/opt/rt4/sbin/rt-fulltext-indexer
+User=apache
+Group=apache

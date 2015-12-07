@@ -1,0 +1,5 @@
+#!/bin/sh
+
+(
+echo "Set(\$DatabaseType, 'SQLite');"
+) > $RTCONFDIR/10-database-config.pl

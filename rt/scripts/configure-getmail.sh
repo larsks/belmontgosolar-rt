@@ -5,7 +5,7 @@ mkdir -p /var/lib/getmail
 
 chown apache:apache /var/lib/getmail
 
-if echo "${GETMAIL_USE_SSL:-on}" | egrep -qi 'true|on|yes'; then
+if echo "${GETMAIL_USE_SSL:-on}" | is_true; then
 	_retriever=SimplePOP3SSLRetriever
 else
 	_retriever=SimplePOP3Retriever

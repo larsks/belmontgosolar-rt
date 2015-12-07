@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo '[!] full-text search has not been implemented for mysql'
+
