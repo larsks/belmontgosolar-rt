@@ -48,6 +48,7 @@ RUN sh /scripts/install-rt.sh
 COPY config/rt.conf /etc/httpd/conf.d/rt.conf
 COPY config/rt-update-index.service /etc/systemd/system/
 COPY config/rt-update-index.timer /etc/systemd/system/
+COPY config/rt.sh /etc/profile.d/rt.sh
 
 EXPOSE 80
 EXPOSE 443

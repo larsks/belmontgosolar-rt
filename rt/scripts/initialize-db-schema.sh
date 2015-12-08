@@ -9,6 +9,11 @@ if [ ! -f "$DBFLAGFILE" ]; then
 			[!] failed to initialize database schema
 			[i] but this is probably because it already exists, so continuing...
 			EOF
+		else
+			for data in /opt/rt4/etc/sitedata/*; do
+				[ -f "$data" ] || continue
+				rt-setup-database --action insert --datafile "$data"
+			done
 		fi
 	fi
 
