@@ -6,3 +6,7 @@ pgdump:
     sh -c 'env PGPASSWORD=$DB_ENV_POSTGRES_PASSWORD pg_dump
     -h db -U $DB_ENV_POSTGRES_USER -w rt'
 
+letsencrypt:
+  build: letsencrypt
+  volumes:
+    - /etc/letsencrypt:/etc/letsencrypt
