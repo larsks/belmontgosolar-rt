@@ -10,3 +10,4 @@ letsencrypt:
   build: letsencrypt
   volumes:
     - /etc/letsencrypt:/etc/letsencrypt
+  net: host
